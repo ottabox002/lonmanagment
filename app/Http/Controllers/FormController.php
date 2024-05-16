@@ -208,8 +208,10 @@ class FormController extends Controller
         $BankDetailes = BankDetails::where('loan_id', $id)->get();
         $References = References::where('loan_id', $id)->get(); 
         $data = compact('officedata', 'customer', 'Proprietors', 'CoCustomers', 'Remainingpartners', 'BankDetailes','References');
-     
-        $pdf = Pdf::loadView('pdfview',$data)->setOptions(['defaultFont' => 'sans-serif']);
+        $html = view('pdfview', $data)->render();  
+    
+        $pdf = Pdf::loadHtml($html)->setOptions(['defaultFont' => 'sans-serif']);
+        // $pdf = Pdf::loadView('pdfview',$data)->setOptions(['defaultFont' => 'sans-serif']);
         // dd($data);
         // $pdf = PDF::loadView('pdfview')->setOptions(['defaultFont' => 'sans-serif']);
 // dd($pdf);
